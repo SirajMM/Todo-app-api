@@ -9,13 +9,9 @@ class HomeProvider extends ChangeNotifier {
 
   Future<void> fetchTodoAllList() async {
     // final uri1 = "https://api.nstack.in/v1/todos?limit=20";
-
     final url = Uri.parse(uri);
-
     try {
       final response = await http.get(url);
-
-      print(response.statusCode);
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         final responseData = jsonDecode(response.body) as Map;

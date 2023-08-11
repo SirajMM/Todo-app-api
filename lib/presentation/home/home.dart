@@ -3,6 +3,8 @@ import 'package:api_test/presentation/add_task/add_task_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'widget/home_item_tile.dart';
+
 class ScreenHome extends StatelessWidget {
   const ScreenHome({super.key});
 
@@ -24,44 +26,8 @@ class ScreenHome extends StatelessWidget {
                 homeprovider.users.isNotEmpty
                     ? ListView.separated(
                         shrinkWrap: true,
-                        itemBuilder: (context, index) => ListTile(
-                          contentPadding: const EdgeInsets.all(0),
-                          leading: CircleAvatar(
-                            child: Text('${index + 1}'),
-                          ),
-                          title: Text(homeprovider.users[index]["title"]),
-                          trailing: PopupMenuButton(
-                            onSelected: (value) {
-                              if (value == 'delete') {
-                                homeprovider.deleteTodo(
-                                    homeprovider.users[index]["_id"]);
-                              } else if (value == 'edit') {}
-                            },
-                            itemBuilder: (context) {
-                              return [
-                                const PopupMenuItem(
-                                  value: 'delete',
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Icon(Icons.delete_forever_outlined),
-                                      Text('Delete')
-                                    ],
-                                  ),
-                                ),
-                                const PopupMenuItem(
-                                  value: 'edit',
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [Icon(Icons.edit), Text('Edit')],
-                                  ),
-                                )
-                              ];
-                            },
-                          ),
-                        ),
+                        itemBuilder: (context, index) =>
+                            ItemTile(index: index, homeprovider: homeprovider),
                         separatorBuilder: (context, index) => const Divider(),
                         itemCount: homeprovider.users.length,
                       )
@@ -73,10 +39,11 @@ class ScreenHome extends StatelessWidget {
         isExtended: true,
         onPressed: () {
           Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const ScreenAddTask(),
-              ));
+            context,
+            MaterialPageRoute(
+              builder: (context) => const ScreenAddTask(),
+            ),
+          );
         },
         label: const Text('Add Task'),
       ),

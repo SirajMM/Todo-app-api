@@ -4,13 +4,14 @@ import 'package:provider/provider.dart';
 import 'widgets/custom_textfield.dart';
 
 class ScreenAddTask extends StatelessWidget {
-  const ScreenAddTask({super.key});
-
+  const ScreenAddTask({super.key, this.data});
+  final Map? data;
   @override
   Widget build(BuildContext context) {
+    bool editOrAdd = data != null ? false : true;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Todo '),
+        title: Text(editOrAdd ? 'Add Todo ' : 'Edit Todo'),
       ),
       body: ListView(
         padding: const EdgeInsets.symmetric(
